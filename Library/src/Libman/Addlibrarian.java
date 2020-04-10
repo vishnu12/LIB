@@ -87,7 +87,7 @@ public class Addlibrarian implements ActionListener {
 
 		f.setLayout(null);
 		f.setVisible(true);
-		f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+		
 
 	}
 
