@@ -45,7 +45,7 @@ public class ViewBooks {
 		f.setLocation(200, 50);
 
 		f.setVisible(true);
-		f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+		
 
 	}
 	
