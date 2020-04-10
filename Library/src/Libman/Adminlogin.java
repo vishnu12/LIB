@@ -48,7 +48,7 @@ public class Adminlogin implements ActionListener,KeyListener {
 
 		f.setLayout(null);
 		f.setVisible(true);
-		f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+		
 
 	}
 
