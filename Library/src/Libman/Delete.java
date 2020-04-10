@@ -33,7 +33,7 @@ public class Delete implements ActionListener{
 		f.setSize(400, 400);f.setLocation(200, 200);
 		f.setLayout(null);
 		f.setVisible(true);
-		f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+		
 		
 		connect();
 		
