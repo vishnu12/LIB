@@ -27,7 +27,7 @@ public class Viewlib {
 	public Viewlib() {
 
 		init();
-		connect();
+		//connect();
 		catLoad();
 	}
 
@@ -46,7 +46,7 @@ public class Viewlib {
 		f.setLocation(200, 50);
 
 		f.setVisible(true);
-		f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+		
 
 	}
 
