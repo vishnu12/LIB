@@ -68,7 +68,7 @@ public class IssueBook implements ActionListener{
 		f.setLocation(200, 50);
         f.setLayout(null);
 		f.setVisible(true);
-		f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+		
 		
 	}
 	
