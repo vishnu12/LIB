@@ -25,6 +25,7 @@ public class LibLogin implements ActionListener,KeyListener {
 	JTextField f1;
 	JPasswordField p1;
 	Connection con;PreparedStatement pst;ResultSet rs;
+	public String name,pass;private boolean check=false;
 
 	public LibLogin() {
 
@@ -73,36 +74,23 @@ public class LibLogin implements ActionListener,KeyListener {
 		}
 
 	}
-
-
-	public static void main(String[] args) {
-		new LibLogin();
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-
-		
-		String name=f1.getText();
-		String pass=p1.getText();
-		
-		
+	
+	public boolean check2() {
+		name=f1.getText();
+		pass=p1.getText();
 		try {
-			pst=con.prepareStatement("select Name,Password from addlib2 where Name=?");
+			pst=con.prepareStatement("select Name,Password from addlib2 where Name=? and Password=?");
 			pst.setString(1, name);
+			pst.setString(2, pass);
 			rs=pst.executeQuery();
 			
-			while(rs.next()) {
-			if(pass.equals(rs.getString("Password"))) {
-				
-				JOptionPane.showMessageDialog(null, "Logged in");
-				
-				new LibSection();
-			}else {
-				JOptionPane.showMessageDialog(null, "failed");
-			}
+			if(rs.next()) {
+			
+				check=true;
 				
 			}
+				
+			
 			
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
@@ -110,6 +98,33 @@ public class LibLogin implements ActionListener,KeyListener {
 		}
 		
 		
+		
+		return check;
+	}
+
+
+	public static void main(String[] args) {
+		LibLogin l=new LibLogin();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+		
+		if(check2()) {
+			
+			new LibSection();
+			JOptionPane.showMessageDialog(null, "Logged in");
+			
+			
+		}else {
+			
+			JOptionPane.showMessageDialog(null, "login failed");
+			
+			f1.setText("");
+			p1.setText("");
+			f1.requestFocus();
+		}
 	}
 
 	@Override
@@ -121,39 +136,24 @@ public class LibLogin implements ActionListener,KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
-		String name=f1.getText();
-		String pass=p1.getText();
 		
 		if(e.getKeyCode()==KeyEvent.VK_ENTER) {
+		
+		if(check2()) {
 			
-			try {
-				pst=con.prepareStatement("select Name,Password from addlib2 where Name=?");
-				pst.setString(1, name);
-				rs=pst.executeQuery();
-				
-				while(rs.next()) {
-				if(pass.equals(rs.getString("Password"))) {
-					
-					JOptionPane.showMessageDialog(null, "Logged in");
-					
-					new LibSection();
-				}else {
-					JOptionPane.showMessageDialog(null, "failed");
-				}
-					
-				}
-				
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			new LibSection();
+			JOptionPane.showMessageDialog(null, "Logged in");
 			
 			
+		}else {
 			
+			JOptionPane.showMessageDialog(null, "login failed");
 			
+			f1.setText("");
+			p1.setText("");
+			f1.requestFocus();
 		}
-		
-		
+		}
 	}
 
 	@Override
