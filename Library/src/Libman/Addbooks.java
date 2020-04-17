@@ -155,7 +155,7 @@ public class Addbooks implements ActionListener{
 			ADD();
 		}else if(e.getSource()==b2) {
 			
-			new LibSection();
+			f.setVisible(false);
 		}
 		
 	}

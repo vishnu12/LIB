@@ -73,7 +73,8 @@ public class LibSection implements ActionListener{
 			
 			new returnBook();
 		}else if(e.getSource()==b6) {
-			new Login();
+			new LibLogin();
+			f.setVisible(false);
 		}
 		
 	}

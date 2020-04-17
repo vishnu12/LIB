@@ -172,7 +172,8 @@ public class IssueBook implements ActionListener{
 	
 	public static void main(String[] args) {
 		
-		new IssueBook();
+		IssueBook i=new IssueBook();
+	
 	}
 
 	@Override
@@ -180,7 +181,9 @@ public class IssueBook implements ActionListener{
 		if(e.getSource()==b1) {
 			ADD2();
 		}else if(e.getSource()==b2) {
-			new LibSection();
+			
+			f.setVisible(false);
+			
 		}
 		
 	}

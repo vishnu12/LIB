@@ -156,7 +156,7 @@ public class returnBook implements ActionListener {
 			delete();
 		}else if(e.getSource()==b2) {
 			
-			new LibSection();
+			f.setVisible(false);
 		}
 		
 	}

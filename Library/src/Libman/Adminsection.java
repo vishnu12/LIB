@@ -61,7 +61,7 @@ public class Adminsection implements ActionListener {
 			new Delete();
 		}else if(e.getSource()==b4) {
 			
-			new Login();
+			f.setVisible(false);
 		}
 
 	}

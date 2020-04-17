@@ -65,6 +65,9 @@ public class Adminlogin implements ActionListener,KeyListener {
 		if (c1.equals("admin") && c2.equals("1234")) {
 
 			new Adminsection();
+			f1.setText("");
+			p1.setText("");
+			f1.requestFocus();
 		} else {
 
 			JOptionPane.showMessageDialog(null, "Login failed");

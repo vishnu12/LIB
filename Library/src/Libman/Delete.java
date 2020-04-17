@@ -92,7 +92,7 @@ public class Delete implements ActionListener{
 			delete();
 		}else if(e.getSource()==b2) {
 			
-			new Adminsection();
+			f.setVisible(false);
 		}
 		
 	}
