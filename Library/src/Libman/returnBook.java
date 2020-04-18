@@ -195,7 +195,7 @@ public class returnBook implements ActionListener {
 				SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 				String d2=rs.getString("Datereturn");
 				Date str = Calendar.getInstance().getTime(); 
-			    String d1=df.format(str);
+			    String d1=df.format(str);//today date
 			    LocalDate ldA = LocalDate.parse(d2);
 			    LocalDate ldB = LocalDate.parse(d1);
 			    long daysBetween = ChronoUnit.DAYS.between( ldA , ldB );
