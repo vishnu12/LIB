@@ -198,14 +198,18 @@ public class returnBook implements ActionListener {
 			    String d1=df.format(str);
 			    LocalDate ldA = LocalDate.parse(d2);
 			    LocalDate ldB = LocalDate.parse(d1);
-			    long daysBetween = ChronoUnit.DAYS.between( ldB , ldA );
+			    long daysBetween = ChronoUnit.DAYS.between( ldA , ldB );
 			    
 			    int m=(int)daysBetween;
-			    int fine=Math.abs(m*10);
+			    if(m>0) {
+			    int fine=m*10;
 			    t1.setText(fine+"");
+			}else {
+				
+				t1.setText("0");
 			}
 			
-			
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
