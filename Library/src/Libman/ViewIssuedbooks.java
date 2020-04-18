@@ -33,7 +33,7 @@ public class ViewIssuedbooks {
 
 		f = new JFrame("View Issued Books");
 		DefaultTableModel model = new DefaultTableModel(new Object[][] {},
-				new Object[] { "ID", "Callno", "Studentid", "Studentname", "Contact","Date"});
+				new Object[] { "ID", "Callno", "Studentid", "Studentname", "Contact","Date","Date-R"});
 
 		j = new JTable(model);
 
@@ -87,6 +87,7 @@ public class ViewIssuedbooks {
 					v2.add(rs.getString("Studentname"));
 					v2.add(rs.getString("Contact"));
 					v2.add(rs.getString("Date"));
+					v2.add(rs.getString("Datereturn"));
 					
 				}
 

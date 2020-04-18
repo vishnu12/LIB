@@ -7,6 +7,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,7 +26,7 @@ import com.toedter.calendar.JDateChooser;
 
 public class returnBook implements ActionListener {
 	
-	JFrame f;JLabel l1,l2,l3;JButton b1,b2;JComboBox c;JTextField t;JDateChooser rd;
+	JFrame f;JLabel l1,l2,l3,l4;JButton b1,b2;JComboBox c;JTextField t,t1;;JDateChooser rd;
 	private Connection con;
 	private PreparedStatement ps;
 	private ResultSet rs;
@@ -47,13 +54,18 @@ public class returnBook implements ActionListener {
 		f.add(l2);
 		t=new JTextField();t.setBounds(200, 145, 140, 30);f.add(t);
 		
+		l4=new JLabel("Fine");
+		l4.setBounds(40, 195, 100, 30);
+		f.add(l4);
+		t1=new JTextField();t1.setBounds(200, 195, 140, 30);f.add(t1);
+		
 		l3 = new JLabel("Return date");
-		l3.setBounds(40, 210, 100, 30);
+		l3.setBounds(40, 250, 100, 30);
 		f.add(l3);
-		rd=new JDateChooser();rd.setBounds(200, 210, 140, 30);f.add(rd);
+		rd=new JDateChooser();rd.setBounds(200, 250, 140, 30);f.add(rd);
 		
 		b1 = new JButton("Return");
-		b1.setBounds(140, 285, 110, 40);
+		b1.setBounds(140, 355, 110, 40);
 		f.add(b1);b1.addActionListener(this);
 		
 		b2 = new JButton("Back");
@@ -130,16 +142,74 @@ public class returnBook implements ActionListener {
 		try {
 			ps=con.prepareStatement("delete from issuebook where Studentid=?");
 			ps.setString(1, c);
-			int k=ps.executeUpdate();
+			ps.executeUpdate();
 			
-			if(k==1) {
-				
-				JOptionPane.showMessageDialog(null, "Returned succesfully");
-			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	}
+	
+	public void returnbook() {
+		
+		SimpleDateFormat d1=new SimpleDateFormat("yyyy-MM-dd");
+		String date=d1.format(rd.getDate());
+		String id=t.getText();
+		
+		try {
+			ps=con.prepareStatement("insert into returnbook(studentid,returndate) values(?,?)");
+			ps.setString(1, id);
+			ps.setString(2, date);
+			int k=ps.executeUpdate();
+			if(k==1) {
+				
+				JOptionPane.showMessageDialog(null, "Returned successfully");
+			}else {
+				
+				JOptionPane.showMessageDialog(null, "Failed");
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void fineCalc() {
+		
+		String id=t.getText();
+		try {
+			ps=con.prepareStatement("select * from issuebook where Studentid=?");
+			ps.setString(1, id);
+			rs=ps.executeQuery();
+			if(rs.next()==false) {
+				
+				
+				JOptionPane.showMessageDialog(null, "Column not found");
+				
+			}else {
+				SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+				String d2=rs.getString("Datereturn");
+				Date str = Calendar.getInstance().getTime(); 
+			    String d1=df.format(str);
+			    LocalDate ldA = LocalDate.parse(d2);
+			    LocalDate ldB = LocalDate.parse(d1);
+			    long daysBetween = ChronoUnit.DAYS.between( ldB , ldA );
+			    
+			    int m=(int)daysBetween;
+			    int fine=Math.abs(m*10);
+			    t1.setText(fine+"");
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		
 	}
 	
@@ -152,8 +222,10 @@ public class returnBook implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 	
 		if(e.getSource()==b1) {
-			
+			fineCalc();
+		    returnbook();
 			delete();
+			
 		}else if(e.getSource()==b2) {
 			
 			f.setVisible(false);

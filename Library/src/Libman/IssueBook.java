@@ -20,7 +20,7 @@ import com.toedter.calendar.JDateChooser;
 
 public class IssueBook implements ActionListener{
 	
-	JFrame f;JLabel l1,l2,l3,l4,l5,l6;JComboBox c;JButton b1,b2;JTextField f2,f3,f4,f5;JDateChooser rd;
+	JFrame f;JLabel l1,l2,l3,l4,l5,l6,l7;JComboBox c;JButton b1,b2;JTextField f2,f3,f4,f5;JDateChooser rd,rd1;
 	private Connection con;
 	private PreparedStatement ps;
 	private ResultSet rs;
@@ -59,6 +59,10 @@ public class IssueBook implements ActionListener{
 		l6=new JLabel("Date");
 		l6.setBounds(50, 250, 100, 30);f.add(l6);
 		rd=new JDateChooser();rd.setBounds(250, 250,130, 30);f.add(rd);
+		
+		l7=new JLabel("Date-return");
+		l7.setBounds(50, 300, 100, 30);f.add(l7);
+		rd1=new JDateChooser();rd1.setBounds(250, 300,130, 30);f.add(rd1);
 		
 		b1=new JButton("Issue");b1.setBounds(250, 350, 120, 40);f.add(b1);b1.addActionListener(this);
 		b2=new JButton("Back");b2.setBounds(275, 420, 70, 25);f.add(b2);b2.addActionListener(this);
@@ -129,15 +133,17 @@ public class IssueBook implements ActionListener{
 			String cont = f5.getText();
 			SimpleDateFormat d1=new SimpleDateFormat("yyyy-MM-dd");
 			String date=d1.format(rd.getDate());
+			String date2=d1.format(rd1.getDate());
 			
 
 			try {
-				ps = con.prepareStatement("insert into issuebook(Callno,Studentid,Studentname,Contact,Date) values(?,?,?,?,?)");
+				ps = con.prepareStatement("insert into issuebook(Callno,Studentid,Studentname,Contact,Date,Datereturn) values(?,?,?,?,?,?)");
 				ps.setInt(1, citem.ID);
 				ps.setString(2, id);
 				ps.setString(3, name);
 				ps.setString(4, cont);
 				ps.setString(5, date);
+				ps.setString(6, date2);
 				
 				
 				int k = ps.executeUpdate();
